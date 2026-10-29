@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magnetic confinement — a tokamak orbit study</title>
+    <meta
+      name="description"
+      content="An interactive study of charged-particle orbits in a tokamak. Change the toroidal field and watch gyro-orbits and banana orbits tighten against the vessel wall."
+    />
+    <meta name="theme-color" content="#07080c" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307080c'/%3E%3Cellipse cx='16' cy='16' rx='11' ry='5' fill='none' stroke='%23ff6f86' stroke-width='2'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-BheVHiOT.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DP_boD1m.css">
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sheet">
+        <header class="masthead">
+          <div class="sheet-id">
+            <span>Tokamak study</span>
+            <span>No. 07</span>
+            <span>Rev. C</span>
+          </div>
+          <h1>Magnetic<br />confinement</h1>
+          <p class="dek">
+            Six charged particles in a tokamak field. Change the field strength and
+            watch the orbits tighten.
+          </p>
+        </header>
+
+        <section class="block presets-block" aria-label="Scenarios">
+          <div class="presets">
+            <button class="chip is-active" data-preset="iter" aria-pressed="true">ITER 5.3 T</button>
+            <button class="chip" data-preset="weak" aria-pressed="false">Weak 2.4 T</button>
+            <button class="chip" data-preset="toroidal" aria-pressed="false">Toroidal only</button>
+          </div>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Field</h2>
+          <div class="control">
+            <div class="control-row">
+              <label for="b0">Toroidal field</label>
+              <output class="value" id="b0-value" for="b0"><span id="b0-num">5.3</span><small>T</small></output>
+            </div>
+            <input
+              id="b0"
+              class="range"
+              type="range"
+              min="1"
+              max="12"
+              step="0.1"
+              value="5.3"
+              aria-describedby="b0-scale"
+            />
+            <div class="scale" id="b0-scale"><span>1.0</span><span>12.0 T</span></div>
+          </div>
+          <div class="switch-row">
+            <div class="switch-copy">
+              <span class="switch-label" id="poloidal-label">Poloidal field</span>
+              <span class="switch-note">plasma current, q ≈ 3.4</span>
+            </div>
+            <button
+              type="button"
+              class="switch"
+              id="poloidal"
+              role="switch"
+              aria-checked="true"
+              aria-labelledby="poloidal-label"
+            >
+              <span></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Particle</h2>
+          <div class="species" role="group" aria-label="Test particle species">
+            <button class="species-btn is-active" data-species="alpha" aria-pressed="true">
+              <i style="--dot: #ffd27a"></i>Alpha
+            </button>
+            <button class="species-btn" data-species="deuteron" aria-pressed="false">
+              <i style="--dot: #ff6f86"></i>Deuterium
+            </button>
+          </div>
+          <div class="control control-tight">
+            <div class="control-row">
+              <label for="energy">Energy</label>
+              <output class="value" id="energy-value" for="energy"><span id="energy-num">3.50</span><small id="energy-unit">MeV</small></output>
+            </div>
+            <input
+              id="energy"
+              class="range"
+              type="range"
+              min="500"
+              max="3500"
+              step="25"
+              value="3500"
+              aria-describedby="energy-scale"
+            />
+            <div class="scale" id="energy-scale"><span>0.5</span><span>3.5 MeV</span></div>
+          </div>
+          <p class="species-note" id="species-note">
+            Fusion-born helium nucleus. Alpha heating is the plasma's main
+            self-heating channel.
+          </p>
+        </section>
+
+        <section class="block">
+          <h2 class="block-title">Readout</h2>
+          <dl class="readout">
+            <div class="lead">
+              <dt>Gyroradius</dt>
+              <dd><span id="rho-num">54</span><small id="rho-unit">mm</small></dd>
+            </div>
+            <div>
+              <dt>Confinement</dt>
+              <dd id="confined">6 / 6</dd>
+            </div>
+            <div>
+              <dt>Trapped / passing</dt>
+              <dd id="mix">3 / 3</dd>
+            </div>
+            <div>
+              <dt>Field at orbit</dt>
+              <dd><span id="b-local-num">4.61</span><small>T</small></dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="block observation-block mobile-observation">
+          <h2 class="block-title">Observation</h2>
+          <p class="observation-mobile" id="observation-mobile">
+            The field lines are helices. Each particle spirals along one while drifting
+            across it; the poloidal twist turns that drift into a closed orbit.
+          </p>
+        </section>
+
+        <footer class="sheet-foot">
+          <span>Boris pusher</span>
+          <span>Δt <b id="dt">0.37</b> ns</span>
+          <span><b id="steps">000</b> steps/frame</span>
+        </footer>
+      </aside>
+
+      <main class="stage" id="stage">
+        <canvas
+          id="scene"
+          role="img"
+          aria-label="Three-dimensional tokamak with particle orbits"
+        ></canvas>
+
+        <div class="fig-label">
+          <span>Fig. 1 — Tokamak, R₀ 6.2 m / a 2.0 m</span>
+          <ul class="legend">
+            <li><span class="sw orbit"></span>Orbit</li>
+            <li><span class="sw field"></span>Field line</li>
+            <li><span class="sw flux"></span>Flux surface</li>
+          </ul>
+          <span class="orbit-hint">Drag to orbit / scroll to zoom</span>
+        </div>
+
+        <div class="transport" role="group" aria-label="Playback">
+          <button type="button" id="pause" aria-pressed="false">Pause</button>
+          <button type="button" id="relaunch">Relaunch</button>
+          <button type="button" id="speed" aria-label="Playback speed">1×</button>
+        </div>
+
+        <div class="observation-panel">
+          <span class="obs-label">Observation</span>
+          <p class="observation" id="observation">
+            The field lines are helices. Each particle spirals along one while drifting
+            across it; the poloidal twist turns that drift into a closed orbit.
+          </p>
+        </div>
+
+        <figure class="section-card">
+          <figcaption><span>Poloidal section</span><span>R–Z</span></figcaption>
+          <canvas
+            id="section"
+            width="240"
+            height="240"
+            role="img"
+            aria-label="Poloidal cross-section of the particle orbits"
+          ></canvas>
+          <div class="section-foot"><span>inboard</span><span>outboard</span></div>
+        </figure>
+      </main>
+    </div>
+
+  </body>
+</html>
