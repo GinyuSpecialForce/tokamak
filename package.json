@@ -1,0 +1,18 @@
+{
+  "name": "tokamak-confinement",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Interactive simulation of charged-particle orbits in a tokamak magnetic field.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}
